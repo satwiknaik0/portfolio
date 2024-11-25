@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <title>satwik's website</title>
+   </head>
+   <body>
+       <p>
+        Program 1:-
+import matplotlib.pyplot as plt
+import numpy as np
+#Data
+grades = [75,89,66,52,90,68,83,94,77,60,
+38,47,87,65,97,49,65,70,73,81,
+85,77,83,56,63,79,69,82,84,70,
+62,75,29,88,74,37,81,76,74,63,
+69,73,91,87,76,58,63,60,71,82]<br>
+# (a) Frequency Distribution<br>
+hist, bins = np.histogram(grades, bins=range(29, 100, 10))<br>
+print("Frequency Distribution")<br>
+print("class : frequency")<br>
+for i in range(len(bins) - 1):<br>
+print(f"{bins[i]}-{bins[i+1]} : {hist[i]}")<br>
+print(" ")<br>
+# (b) Relative frequency distribution<br>
+relative_freq=hist / len(grades)<br>
+print("Relative Frequency Distribution")<br>
+print("class : frequency")<br>
+for i in range(len(bins) - 1):<br>
+print(f"{bins[i]}-{bins[i+1]} : {relative_freq[i]}")<br>
+print(" ")<br>
+# (c) cumulative frequency distribution<br>
+cumulative_freq=np.cumsum(hist)<br>
+print("Cumulative Frequency Distribution")<br>
+print("class : frequency")<br>
+for i in range(len(bins) - 1):<br>
+print(f"{bins[i]}-{bins[i+1]} : {cumulative_freq[i]}")<br>
+print(" ")<br>
+Output:-
+Frequency Distribution
+class : frequency
+29-39 : 3
+39-49 : 1
+49-59 : 4
+59-69 : 10
+69-79 : 15
+79-89 : 12
+89-99 : 5
+Relative Frequency Distribution
+class : frequency
+29-39 : 0.06
+39-49 : 0.02
+49-59 : 0.08
+59-69 : 0.2
+69-79 : 0.3
+79-89 : 0.24
+89-99 : 0.1
+Cumulative Frequency Distribution
+class : frequency
+29-39 : 3
+39-49 : 4
+49-59 : 8
+59-69 : 18
+69-79 : 33
+79-89 : 45
+89-99 : 50<br>
+Program 2:-<br>
+import matplotlib.pyplot as plt<br>
+import numpy as np<br>
+#Data<br>
+grades = [75,89,66,52,90,68,83,94,77,60,
+38,47,87,65,97,49,65,70,73,81,
+85,77,83,56,63,79,69,82,84,70,
+62,75,29,88,74,37,81,76,74,63,
+69,73,91,87,76,58,63,60,71,82]<br>
+# Histogram<br>
+plt.hist(grades,bins=range(29, 100, 10), edgecolor="black")<br>
+plt.title('Histogram')<br>
+plt.xlabel('grade ranges')<br>
+plt.ylabel('frequency')<br>
+plt.xticks(range(29,100,10))<br>
+plt.show()<br>
+# Calculate the histogram<br>
+frequencies, bin_edges = np.histogram(grades, bins=10)<br>
+#calculate relative frequency<br>
+relative_frequencies= frequencies / frequencies.sum()<br>
+#create the histogram for relative frequencies<br>
+plt.bar(bin_edges[:-1], relative_frequencies, width=np.diff(bin_edges), color='red',<br>
+edgecolor='black', align='edge')<br>
+#add labels and title<br>
+plt.xlabel('Grades')<br>
+plt.ylabel('relative Frequency')<br>
+plt.title('Histogram of Relatvive frequency of student Grades')<br>
+#show the plot<br>
+plt.show()<br>
+Program 3:-<br>
+import matplotlib.pyplot as plt<br>
+import numpy as np<br>
+from scipy import stats<br>
+#Data<br>
+grades = [75,89,66,52,90,68,83,94,77,60,
+38,47,87,65,97,49,65,70,73,81,
+85,77,83,56,63,79,69,82,84,70,
+62,75,29,88,74,37,81,76,74,63,
+69,73,91,87,76,58,63,60,71,82]<br>
+class_boundary = [29, 39, 49, 59, 69, 79, 89, 99]<br>
+# It can be calculated from data<br>
+# Original frequency: [3,1,4,10,15,12,5,0]<br>
+frequency = np.array([3,1,4,10,15,12,5,0])<br>
+# Adjust frequency to have the same length as class boundary (8 elements)<br>
+#frequency, class_edges = np.histogram(grades, bins=class_boundary)<br>
+cumulative_frequency = np.cumsum(frequency)<br>
+print(cumulative_frequency)<br>
+plt.plot(class_boundary, cumulative_frequency,marker='o')<br>
+plt.title('ogive curve')<br>
+plt.xlabel('class boundary')<br>
+plt.ylabel('cumulative frequency')<br>
+plt.show()<br>
+Output:-<br>
+[ 3 4 8 18 33 45 50 50]<br>
+Program 4:-<br>
+import numpy as np<br>
+import pandas as pd<br>
+from scipy import stats<br>
+# Your data<br>
+data = [10, 15, 17, 23, 25, 32, 34, 36, 41, 41, 43, 48, 52, 52, 54,
+55, 57, 60, 60, 61, 62, 63, 64, 64, 65, 67, 67, 69, 70, 71,
+72, 74, 74, 74, 75, 76, 76, 77, 78, 78, 79, 79, 80, 80, 80,
+81, 81, 82, 82, 83, 84, 84, 85, 85, 88, 89, 90, 92, 95, 98]<br>
+# Convert to a pandas Series for convenience<br>
+data_series = pd.Series(data)<br>
+#Calculating statistics<br>
+mean = data_series.mean()<br>
+median = data_series.median()<br>
+mode = data_series.mode()[0]<br>
+variance = data_series.var()<br>
+std_dev = data_series.std()<br>
+coef_of_variation = std_dev / mean*100<br>
+q1 = data_series.quantile(0.25)<br>
+q2 = median #same as median<br>
+q3 = data_series.quantile(0.75)<br>
+skewness = data_series.skew()<br>
+#printing results<br>
+print(f"Mean: {mean}")<br>
+print(f"Median: {median}")<br>
+print(f"Mode: {mode}")<br>
+print(f"variance: {variance}")<br>
+print(f"standard deviation: {std_dev}")<br>
+print(f"co-efficient of variation: {coef_of_variation}")<br>
+print(f"quartile-1: {q1}")<br>
+print(f"quartile-2: {q2}")<br>
+print(f"quartile-3: {q3}")<br>
+print(f"skewness: {skewness}")<br>
+Output:-<br>
+Mean: 65.48333333333333<br>
+Median: 71.5
+Mode: 74
+variance: 446.62683615819196
+standard deviation: 21.13354764724068
+co-efficient of variation: 32.27317024266838
+quartile-1: 54.75
+quartile-2: 71.5
+quartile-3: 80.25
+skewness: -0.9530135400451895<br>
+Program 5(a):-<br>
+import matplotlib.pyplot as plt<br>
+import numpy as np<br>
+#Nicotine content data<br>
+nicotine_data=[1.09, 1.92, 2.31, 1.79, 2.28, 1.74, 1.47, 1.97,
+0.85, 1.24, 1.58, 2.03, 1.70, 2.17, 2.55, 2.11,
+1.86, 1.90, 1.68, 1.51, 1.64, 0.72, 1.69, 1.85,
+1.82, 1.79, 2.46, 1.88, 2.08, 1.67, 1.37, 1.93,
+1.40, 1.64, 2.09, 1.75, 1.63, 2.37, 1.75, 1.69]<br>
+#Create BOX Plot<br>
+plt.boxplot(nicotine_data)<br>
+plt.title('Box plot of Nicotine content')<br>
+plt.ylabel('nicotine content(mg)')<br>
+plt.show()<br>
+#Analyze the data<br>
+mean_nicotine=np.mean(nicotine_data)<br>
+median_nicotine=np.median(nicotine_data)<br>
+q1=np.percentile(nicotine_data,25)<br>
+q3=np.percentile(nicotine_data,75)<br>
+iqr=q3-q1<br>
+print(f'mean Nicotine content : {mean_nicotine}mg')<br>
+print(f'median Nicotine content : {median_nicotine}mg')<br>
+print(f'Interquartile Range(IQR): {iqr}mg')<br>
+print(f'Q1:{q1}mg')<br>
+print(f'Q3:{q3}mg')<br>
+#identify potential outliers<br>
+lower_bound=q1-1.5*iqr<br>
+upper_bound=q3+1.5*iqr<br>
+outliers=[x for x in nicotine_data if x<lower_bound or x>upper_bound]<br>
+if len(outliers)>0:<br>
+print('Potential outliers:')<br>
+for outlier in outliers:<br>
+print(f'{outlier}mg')<br>
+else:<br>
+print('No potential outliers found')<br>
+Output:-<br>
+mean Nicotine content : 1.7742499999999999mg
+median Nicotine content : 1.77mg
+Interquartile Range(IQR): 0.3474999999999999mg
+Q1:1.6375mg
+Q3:1.9849999999999999mg
+Potential outliers:
+1.09mg
+0.85mg
+2.55mg
+0.72mg<br>
+Program 5(b):-<br>
+import numpy as np<br>
+import matplotlib.pyplot as plt<br>
+import scipy.stats as stats<br>
+# Your data<br>
+data = [3.89, 4.75, 6.33, 4.75, 7.21, 5.78, 5.80, 5.20, 6.64]<br>
+# Q-Q plot<br>
+stats.probplot(data, dist="norm", plot=plt)<br>
+# Add title and labels<br>
+plt.title("Q-Q plot")<br>
+plt.xlabel("Theoretical Quantiles")<br>
+#Show the plot<br>
+plt.grid()<br>
+plt.show()<br>
+Output:-<br>
+
+
+       </p>   
+   </body>
+</html>
+
